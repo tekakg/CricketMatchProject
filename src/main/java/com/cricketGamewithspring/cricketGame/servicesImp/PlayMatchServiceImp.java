@@ -1,12 +1,9 @@
 package com.cricketGamewithspring.cricketGame.servicesImp;
 
-import com.cricketGamewithspring.cricketGame.Repo.MatchRepo;
 import com.cricketGamewithspring.cricketGame.model.Ball;
 import com.cricketGamewithspring.cricketGame.model.Team;
 import com.cricketGamewithspring.cricketGame.model.Match;
-import com.cricketGamewithspring.cricketGame.services.FirstInningService;
 import com.cricketGamewithspring.cricketGame.services.PlayMatchService;
-import com.cricketGamewithspring.cricketGame.services.SecondInningService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +15,39 @@ import java.util.List;
 @Data
 @Service
 @RequiredArgsConstructor
+// This class is responsible for playing a match between two teams
 public class PlayMatchServiceImp implements PlayMatchService {
 
-    @Autowired
-    private FirstInningServiceImp firstInningServiceImp;
 
+    // Autowiring InningServiceImp for accessing its methods
     @Autowired
-    private SecondInningServiceImp secondInningServiceImp;
+    private InningServiceImp inningServiceImp;
 
+    // This method plays the match between two teams and returns the result
     public String playMatch(Team team1, Team team2, Match match, String tossWinningTeam) {
+
+        // Initializing an empty list to store ball-by-ball commentary
         List<Ball> ballHistory = new ArrayList<>();
-        List<Team> output = firstInningServiceImp.firstInnings(team1, team2, match, tossWinningTeam, ballHistory);
 
-        output = secondInningServiceImp.secondInnings(output.get(0), output.get(1), match, ballHistory);
+        // Initializing batting and bowling teams based on the toss result
+        Team BattingTeam = null;
+        Team BowlingTeam = null;
+        if (tossWinningTeam == team1.getTeamName()) {
+            BattingTeam = team1;
+            BowlingTeam = team2;
+        } else {
+            BattingTeam = team2;
+            BowlingTeam = team1;
+        }
 
-        Team BattingTeam = output.get(0);
-        Team BowlingTeam = output.get(1);
+        // Running the innings of the batting and bowling team respectively
+        inningServiceImp.matchInnings(BattingTeam, BowlingTeam, match, ballHistory);
+        inningServiceImp.matchInnings(BowlingTeam, BattingTeam, match, ballHistory);
+
+        // Setting the ball-by-ball commentary to the match object
+        match.setCommentary((ArrayList<Ball>) ballHistory);
+
+        // Calculating the result of the match based on the scores of the two teams
         String result;
         if (BattingTeam.getScore() > BowlingTeam.getScore()) {
             result = BattingTeam.getTeamName() + " " + "has won the match";
@@ -45,3 +59,4 @@ public class PlayMatchServiceImp implements PlayMatchService {
         return result;
     }
 }
+

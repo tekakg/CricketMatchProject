@@ -3,9 +3,9 @@ package com.cricketGamewithspring.servicesImpTest;
 import com.cricketGamewithspring.cricketGame.model.Match;
 import com.cricketGamewithspring.cricketGame.model.Player;
 import com.cricketGamewithspring.cricketGame.model.Team;
-import com.cricketGamewithspring.cricketGame.servicesImp.FirstInningServiceImp;
+
+import com.cricketGamewithspring.cricketGame.servicesImp.InningServiceImp;
 import com.cricketGamewithspring.cricketGame.servicesImp.PlayMatchServiceImp;
-import com.cricketGamewithspring.cricketGame.servicesImp.SecondInningServiceImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,9 +27,7 @@ public class PlayMatchServiceImpTest {
     @InjectMocks
     private PlayMatchServiceImp playMatchService;
     @MockBean
-    private FirstInningServiceImp firstInningServiceImp;
-    @MockBean
-    private SecondInningServiceImp secondInningServiceImp;
+    private InningServiceImp inningServiceImp;
 
 
     @Test
@@ -57,8 +55,7 @@ public class PlayMatchServiceImpTest {
         List<Team> listTeam = new ArrayList<>();
         listTeam.add(team1);
         listTeam.add(team2);
-        when(firstInningServiceImp.firstInnings(any(), any(), any(), anyString(), any())).thenReturn(listTeam);
-        when(secondInningServiceImp.secondInnings(any(), any(), any(), any())).thenReturn(listTeam);
+
         String Output = playMatchService.playMatch(team1, team2, match, "Team 1");
         assertNotNull(Output);
 

@@ -17,7 +17,7 @@ public class TossServiceImpTest {
     TossServiceImp tossServiceImp;
 
     @Test
-    void testGetToss() throws Exception {
+    void GetToss() throws Exception {
         Team team1 = new Team("Team1", 0, 0, 0, 0, 0);
         Team team2 = new Team("Team2", 0, 0, 0, 0, 0);
 

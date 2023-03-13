@@ -3,8 +3,9 @@ package com.cricketGamewithspring.cricketGame.services;
 import com.cricketGamewithspring.cricketGame.model.MatchDetail;
 import com.cricketGamewithspring.cricketGame.model.Scoreboard;
 
-public interface CricketService {
+import java.util.Optional;
 
-    public Scoreboard createMatch(MatchDetail matchDetail);
+public interface CricketService {
+     Optional<Scoreboard>createMatch(MatchDetail matchDetail);
 
 }

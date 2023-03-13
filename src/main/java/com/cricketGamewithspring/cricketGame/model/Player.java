@@ -5,14 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Index;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "player")
+@Document(indexName = "cricketer")
+
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Index(name = "playerId")
     private int id;
     @Index(name = "playerName")
@@ -23,7 +26,7 @@ public class Player {
     private int BallsFaced;
     private int wickets;
     private int BallsBowled;
-    private boolean outOrNot;
+    private boolean pout;
 
     public void incrementRun(int run) {
         this.run += run;
@@ -46,5 +49,16 @@ public class Player {
         this.name = name;
         this.role = role;
     }
+    public Player(Player player)
+    {
+        this.id= player.getId();
+        this.name=player.getName();
+        this.role=player.getRole();
+        this.run=player.getRun();
+        this.BallsFaced= player.getBallsFaced();
+        this.BallsBowled= player.getBallsBowled();
+        this.wickets=player.getWickets();
+    }
+
 }
 
