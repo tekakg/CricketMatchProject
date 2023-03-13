@@ -61,6 +61,7 @@ public class InningServiceImp implements InningService {
                 } else if (runtype == RunType.NOBALL || runtype == RunType.WIDE) {
                     BattingTeam.incrementRun(run);
                     Striker.incrementRun(run);
+                    ballnum--;
                     if (BattingTeam.getScore() > BowlingTeam.getScore() && BowlingTeam.getScore() > 0) {
                         inningEnd = 1;
                         break;
