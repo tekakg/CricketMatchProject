@@ -81,28 +81,18 @@ public class InningServiceImp implements InningService {
                     }
                 }
             }
-            swap(Striker, nonStriker);
-            bowlerChange(BowlingTeam, Bowler);
+            Player temp = Striker;
+            Striker = nonStriker;
+            nonStriker = temp;
+            int index = BowlingTeam.listOfPlayers.indexOf(Bowler);
+            index++;
+            index = (int) (index % (BowlingTeam.getTotalPlayers()));
+            Bowler = BowlingTeam.listOfPlayers.get(index);
             if (inningEnd == 1) {
                 break;
             }
         }
         BattingTeam.setOverNumber(overnum);
         BattingTeam.setBallNumber(ballnum);
-    }
-
-    // It is used to change the strike by swapping players.
-    private void swap(Player player1, Player player2) {
-        Player temp = player1;
-        player1 = player2;
-        player2 = temp;
-    }
-
-    // This method is used to change the bowler after every over.
-    private void bowlerChange(Team BowlingTeam, Player Bowler) {
-        int index = BowlingTeam.listOfPlayers.indexOf(Bowler);
-        index++;
-        index = (int) (index % (BowlingTeam.getTotalPlayers()));
-        Bowler = BowlingTeam.listOfPlayers.get(index);
     }
 }
