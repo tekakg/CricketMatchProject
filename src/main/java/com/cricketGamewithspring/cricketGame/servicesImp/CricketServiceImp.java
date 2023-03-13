@@ -50,7 +50,8 @@ public class CricketServiceImp implements CricketService {
 
         // Validate the match details to ensure they are valid
         ValidateMatchDetails(matchDetail, team1PlayerId, team2PlayerId, allPlayersInRep);
-
+        
+        matchDetail.setId(sequenceGeneratorService.generateSequence("matchDetail_sequence"));
         // Save the match details to the database
         matchDetailRepo.save(matchDetail);
 
