@@ -1,3 +1,13 @@
+#Installation Guide
+
+#Mongodb: brew services start mongodb-community@6.0 ---> mongo db start (server) brew services stop mongodb-community@6.0 ---> stopping mongodb command:----------> show databases;
+use CricketMatchDetails; show collections; db.HistoryOfCricketMatch.find(); db.ScoreBordDetail.drop();
+
+#mysql: first start my sql server then --> /usr/local/mysql/bin/mysql -u root -p ---> my sql start command:----------> show databases; use CricketMatch show tables; select * from player; DROP TABLE player_info; SHOW INDEXES FROM player_info;
+
+#elasticserch Downloads --> elasticsearch-8.6.2 --> bin/elasticsearch Downloads ---> kibana-8.6.2 ---> bin/kibana http://localhost:9200/ --->server http://localhost:5601/ ---> kibana command: ---> GET players_all_detail/_search DELETE /players_all_detail
+
+
 # CricketMatchWithCommentary
 # Postman commands: 
 1)http://localhost:8083/match-info
